@@ -1,0 +1,7 @@
+artifacts_root: artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  cache_dir: data/cache
+  raw_data_dir: artifacts/data_ingestion/f1_stint_data_2020_2024.csv
+  data_dir: data/f1_stint_data_2020_2024.csv
