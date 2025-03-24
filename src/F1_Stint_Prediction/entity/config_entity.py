@@ -8,3 +8,7 @@ class DataIngestionConfig:
     raw_data_dir : Path
     data_dir : Path
     
+@dataclass(frozen=True)
+class DataTransformationConfig:
+    root_dir: Path
+    data_path: Path

@@ -1,1 +1,32 @@
-key: value
+COLUMNS:
+  EventName: object
+  RoundNumber: int64
+  EventYear: int64
+  Team: object
+  Driver: object
+  GridPosition: int64
+  FinalPosition: int64
+  Compound: object
+  StintLen: int64
+  CircuitLength: int64
+  DesignedLaps: int64
+  StintStartLap: float64
+  StintEndLap: float64
+  AvgLapTime: float64
+  TrackTemp: float64
+  AirTemp: float64
+  Humidity: float64
+  Rainfall: int64
+  DegradationSlope: float64
+  DegradationBias: float64
+  SafetyCar: int64
+  PositionsDelta: int64
+
+TARGET_COLOUMN_STINT_LEN:
+  name: StintLen
+
+TARGET_COLOUMN_COMPOUND:
+  name: Compound
+
+TARGET_COLOUMN_STINT_NUM:
+  name: NumStints
