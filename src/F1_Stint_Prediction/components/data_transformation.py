@@ -4,6 +4,7 @@ import pandas as pd
 from F1_Stint_Prediction import logger
 from sklearn.preprocessing import LabelEncoder
 from F1_Stint_Prediction.entity.config_entity import DataTransformationConfig
+import joblib
 
 class DataTransformation:
     def __init__(self, config: DataTransformationConfig):
@@ -29,6 +30,9 @@ class DataTransformation:
         le_event = LabelEncoder()
         le_compound = LabelEncoder()
 
+        joblib.dump(le_event, os.path.join(self.config.root_dir, 'le_event.joblib'))
+        joblib.dump(le_compound, os.path.join(self.config.root_dir, 'le_compound.joblib'))
+        
         merged_data['EventEncoded'] = le_event.fit_transform(merged_data['EventName'])
         merged_data['CompoundEncoded'] = le_compound.fit_transform(merged_data['Compound'])
 
@@ -56,7 +60,7 @@ class DataTransformation:
         X_stint_count = merged_data.drop_duplicates(subset=['EventName', 'EventYear', 'Driver'])[features_stint_num]
         y_stint_count = merged_data.drop_duplicates(subset=['EventName', 'EventYear', 'Driver'])[target_total_stints]
         
-        self.train_test_spliting(X_stint_count,y_stint_count,"stitn_count",0)
+        self.train_test_spliting(X_stint_count,y_stint_count,"stint_count",0)
         
         s1_df = merged_data[merged_data['stint_num']==1]
         s1_df = s1_df[features_stint_compound]
@@ -105,7 +109,7 @@ class DataTransformation:
     def train_test_spliting(self,X,y,name,num):
         X=X
         y=y
-        X_train, y_train , X_test, y_test = train_test_split(X,y,test_size=0.2,random_state=42)
+        X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=42)
 
         X_train.to_csv(os.path.join(self.config.root_dir, f"X_train_{name}_{num}.csv"),index = False)
         X_test.to_csv(os.path.join(self.config.root_dir, f"X_test_{name}_{num}.csv"),index = False)

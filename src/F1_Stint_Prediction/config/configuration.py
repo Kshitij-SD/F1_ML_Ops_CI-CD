@@ -2,6 +2,7 @@ from F1_Stint_Prediction.constants import *
 from F1_Stint_Prediction.utils.common import read_yaml, create_directories
 from F1_Stint_Prediction.entity.config_entity import DataIngestionConfig
 from F1_Stint_Prediction.entity.config_entity import DataTransformationConfig
+from F1_Stint_Prediction.entity.config_entity import ModelTrainerConfig
 
 
 class ConfigurationManager:
@@ -43,3 +44,19 @@ class ConfigurationManager:
         )
 
         return data_transformation_config
+    
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+        params = self.params.Xgboost
+
+        create_directories([config.root_dir])
+
+        model_trainer_config = ModelTrainerConfig(
+            root_dir=config.root_dir,
+            train_data_path = config.train_data_path,
+            n_estimators= params.n_estimators,
+            early_stopping_rounds= params.early_stopping_rounds,
+            learning_rate= params.learning_rate
+        )
+
+        return model_trainer_config

@@ -12,3 +12,11 @@ class DataIngestionConfig:
 class DataTransformationConfig:
     root_dir: Path
     data_path: Path
+    
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    root_dir: Path
+    train_data_path: Path
+    n_estimators: float
+    early_stopping_rounds: float
+    learning_rate: float
