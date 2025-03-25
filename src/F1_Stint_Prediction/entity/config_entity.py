@@ -20,3 +20,13 @@ class ModelTrainerConfig:
     n_estimators: float
     early_stopping_rounds: float
     learning_rate: float
+    
+from dataclasses import dataclass
+from pathlib import Path
+
+
+@dataclass(frozen=True)
+class ModelEvaluationConfig:
+    root_dir: Path
+    test_data_path: Path
+    model_path: Path
