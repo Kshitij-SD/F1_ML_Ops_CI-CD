@@ -29,13 +29,13 @@ class DataTransformation:
         #Encode categorical variables
         le_event = LabelEncoder()
         le_compound = LabelEncoder()
+                
+        merged_data['EventEncoded'] = le_event.fit_transform(merged_data['EventName'])
+        merged_data['CompoundEncoded'] = le_compound.fit_transform(merged_data['Compound'])
 
         joblib.dump(le_event, os.path.join(self.config.root_dir, 'le_event.joblib'))
         joblib.dump(le_compound, os.path.join(self.config.root_dir, 'le_compound.joblib'))
         
-        merged_data['EventEncoded'] = le_event.fit_transform(merged_data['EventName'])
-        merged_data['CompoundEncoded'] = le_compound.fit_transform(merged_data['Compound'])
-
         #Remove data in which number of stints is more than 5 or less than 1
         merged_data=merged_data[merged_data['num_stints']!=1]
         merged_data=merged_data[merged_data['num_stints']<5]
